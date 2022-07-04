@@ -16,6 +16,7 @@ class SysdigMonitorTestCase(unittest.TestCase):
 
     def tearDown(self):
         self.driver.close()
+        self.driver.quit()
 
 # Checks the page title
 class Title(SysdigMonitorTestCase):
