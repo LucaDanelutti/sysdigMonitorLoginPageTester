@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 URL = "http://app.sysdigcloud.com/"
 TRANSITION_TIMEOUT = 10
 
+# Super class that handles setup and teardown
 class SysdigMonitorTestCase(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -16,18 +17,21 @@ class SysdigMonitorTestCase(unittest.TestCase):
     def tearDown(self):
         self.driver.close()
 
+# Checks the page title
 class Title(SysdigMonitorTestCase):
     def test_title(self):
         driver = self.driver
         driver.get(URL)
         self.assertIn("Sysdig Monitor", driver.title)
 
+# Checks if the browser is redirected to a secure connection
 class HttpsRedirect(SysdigMonitorTestCase):
     def test_https_redirect(self):
         driver = self.driver
         driver.get(URL)
         self.assertIn("https", driver.current_url)
 
+# Checks if the login form works as expected
 class Login(SysdigMonitorTestCase):
     def test_empty_username(self):
         driver = self.driver
@@ -42,6 +46,7 @@ class Login(SysdigMonitorTestCase):
         log_in_button = driver.find_element(By.CLASS_NAME, "simple-btn--login")
         log_in_button.click()
 
+# Checks if the "Forgot your passowrd?" link works
 class ForgotPasswordLink(SysdigMonitorTestCase):
     def test(self):
         driver = self.driver
@@ -56,6 +61,7 @@ class ForgotPasswordLink(SysdigMonitorTestCase):
         wait.until(expected_conditions.presence_of_element_located((By.CLASS_NAME, "block-forgot-password")))
         self.assertIn("forgotPassword", driver.current_url)
 
+# Checks if the "Changed your mind? Login!" link works
 class LoginLink(SysdigMonitorTestCase):
     def test(self):
         driver = self.driver
@@ -70,8 +76,7 @@ class LoginLink(SysdigMonitorTestCase):
         wait.until(expected_conditions.presence_of_element_located((By.CLASS_NAME, "block-login")))
         self.assertIn("login", driver.current_url)
 
-        #TODO
-
+# Checks if the region selector works
 class ChangeRegion(SysdigMonitorTestCase):
     def change_region(self, region_element, region_name):
         driver = self.driver
