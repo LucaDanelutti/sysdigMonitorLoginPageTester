@@ -27,3 +27,4 @@ If you want you can specify one or more test cases. E.g. `python3 tester.py Forg
     - Check the form placeholders
     - Check UI styles
     - Check image urls
+* After that, review the structure of test cases (group them toghether in subclasses/different files)
